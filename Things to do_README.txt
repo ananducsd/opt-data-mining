@@ -1,5 +1,5 @@
 1. Start writing report - Everyone
-2. Label the points from 701-800. Anand is working on it?
+2. Label the points from 701-800. Sampath finished it till 900.
 3. Make plots - Jorge is working on it
 4. Sentiment vs time analysis, now that we have our final classifier working -- Anand?
 5. Evaluation of the classifier -- TP,TN,FP,FN. Some snippets of where the classifier fails - Adithya
