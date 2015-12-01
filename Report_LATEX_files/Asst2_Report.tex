@@ -135,14 +135,18 @@ maximisation algorithm. We explore how sentiments change over time, and also pro
 \subsection{Data visualisation/Exploratory analysis}
 
 \subsection{Dataset Labeling}
-
+Since the original dataset is unlabeled, we manually labeled the first 900 comments as "support" or "oppose". Out of these, the first 600 were used for training, comments from 601-700 constituted the validation set and 700-900 were used for testing .\ 
+We used validation set to pick the best possible model from amongst a pool of possible models. 
 \subsection{Predictive task}
-support vs oppose labels. Sentiment vs time analysis.
+Our main goal here was to classify whether a given comment is  supporting or an opposing. In addition, based on the classifier we obtained, we also examined how the sentiment varied with time. Finally, we tried to examine the trends on an ethnicity basis. The main idea of this was to check if the pattern folows the general belief that most Americans oppose OPT extension, while people from other ethnicities support it.
 
 \section{Related Literature}
 
 \section{Algorithms and models tried for classification}
-Typically, the body of a paper is organized
+Broadly speaking, there are two classes of algorithms that could be tried to classify the comment labels - Supervised and unsupervised. For supervised learning, we tried hierarchical clustering and K means clustering. We used tf-idf frequencies, after eliminating the stop words, and the words that occured only once in the whole corpus. The results that were obtained were terrible, and we realised that clustering with simeple distance measure such as the Eucledian distance metric is very inappropriate for text classification.
+
+Next, we implemented a naive bayes classifier using both unigram and bigram words. First, we pre-processed the words by removing the most common stop words and eliminated all punctuations. We then converted all uppercase letters to lowecase letters. 
+
 
 \section{Results and discusision}
 
