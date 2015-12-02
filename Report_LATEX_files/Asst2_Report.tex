@@ -122,12 +122,13 @@ Adithya\\
 
 \maketitle
 \begin{abstract}
-This paper aims to classify the optional practical training comments using a naive bayes classifier. We demonstrate the effectiveness of the Naive bayes approach and further enhance its performance using a kind of expectation\
-maximisation algorithm. We explore how sentiments change over time, and also provide preliminary results that help in understanding how sentiments vary with ethnicity
-
+This paper aims to classify the optional practical training comments using a naive bayes classifier. We demonstrate the effectiveness of the Naive bayes approach and further enhance its performance using a simplified form  of an expectation\
+maximisation algorithm. We explore how sentiments change over time, and also provide preliminary results that help in understanding how sentiments vary with ethnicity.
 \end{abstract}
 
 \section{Introduction}
+OPT is a scheme in which students with F-1 visas are permitted by the United States Citizenship and Immigration Services (USCIS) to work for at most one year on a student visa towards getting practical training to complement their field of studies. On April 2, 2008, the department of homeland security(DHS) announced an extension to the OPT which was passed by USCIS as an interim rule. This rule allows who graduate in a Science, Technology, Engineering or Math majors can get at OPT extension for upto 17 months. 
+In August 2015, a US federal court gave its verdict on a lawsuit challenging the 17-month OPT STEM extension. The court has decided that the interim rule was deficient as it was not subjected to public notice, comments and opinions. The court vacated the 2008 rule allowing the 17-month extension. However, a stay was put in place until February 12, 2016. DHS will have until then in order to take action regarding the fate of the STEM extension program. This rule was open to public comments for a one month duration, ending on Nov 18th. The comments are publicly available at \url{http://www.regulations.gov/#!docketDetail;D=ICEB-2015-0002}
 
 \section{Information on the Data}
 \subsection{Data collection}
@@ -135,12 +136,12 @@ maximisation algorithm. We explore how sentiments change over time, and also pro
 \subsection{Data visualisation/Exploratory analysis}
 
 \subsection{Dataset Labeling}
-Since the original dataset is unlabeled, we manually labeled the first 900 comments as "support" or "oppose". Out of these, the first 600 were used for training, comments from 601-700 constituted the validation set and 700-900 were used for testing .\ 
+Since the original dataset is unlabeled, we manually labeled the first 900 comments as \textit{support} or \textit{oppose}. Out of these, the first 600 were used for training, comments from 601-700 constituted the validation set and 700-900 were used for testing .\ 
 We used validation set to pick the best possible model from amongst a pool of possible models. 
 \subsection{Predictive task}
-Our main goal here was to classify whether a given comment is  supporting or an opposing. In addition, based on the classifier we obtained, we also examined how the sentiment varied with time. Finally, we tried to examine the trends on an ethnicity basis. The main idea of this was to check if the pattern folows the general belief that most Americans oppose OPT extension, while people from other ethnicities support it.
+Our main goal here was to classify whether a given comment is  supporting or an opposing. In addition, based on the classifier we obtained, we also examined how the proportions of supporting and opposing reviews varied with time. Finally, we tried to examine the trends on an ethnicity basis. The main idea of this was to check if the pattern folows the hypothesis that most Americans oppose OPT extension, while people from other ethnicities support it.
 \subsection{Dataset Preprocessing}
- First, we pre-processed the words by removing the most common stop words and eliminated all punctuations. We then converted all uppercase letters to lowecase letters
+As a preprocessing step, we removed all the punctuations from the words. We also changed all words to lower case letters, although a more rigorous model could make use of the caps information to identify stronger sentiments. Finally, all the common stop words were removed as they convey little meaning. 
 \section{Related Literature}
 
 \section{Algorithms and models tried for classification}
@@ -158,11 +159,8 @@ On the other hand, Multinomail naive bayes assumes that the document of a partic
 P(doc|class) = P(|length(doc)|)\prod_{w \in doc}P(w|class)
 \end{align*}
 
-We implemented both multinomail and bernoulli naive bayes, but we considered only the multinomial model for further analysis because
-\begin{enumerate}
-\item The run time was better
-\item The performance was similar
-\end{enumerate}
+We implemented both multinomail and bernoulli naive bayes, but we considered only the multinomial model for further analysis because the run time was better whilst the performance was similar.
+
 Multinomial models using just unigrams, just bigrams, and using both unigrams and bigrams were considered. Intial results showing the accuracies on the training set, test set and validation set are presented below. 
 INSERT TABLE HERE
 From the table, it is clear that:
@@ -177,14 +175,14 @@ It has been suggested by the authors in CITE, that in cases where the number of 
 \item Predict the class probabilites $P(class|data)$ for all examples in the dataset
 \item Retrain the model based on \textit{class probabilities} estimated in the previous step
 \end{enumerate}
-The first step above is an expectation step  in disguise, and the second step corresponds to the maximisation. Although the second step requires us to retrain the model based on the probabilities in the previous step, we relax the previous steps as follows:
+The first step above is an expectation step  in disguise, and the second step corresponds to the maximisation. Although the second step requires us to retrain the model based on the probabilities in the previous step, we relax this step as follows:
 Relaxed expectation maximisation:
 
 \begin{enumerate}
 \item Predict the class probabilites $P(class|data)$ for all examples in the dataset
 \item Retrain the model based on \textit{class labels} estimated in the previous step
 \end{enumerate}
-What this means, is that we use the predicted labels as the actual labels and retrain the model based on these labels until convergence. These iterations significantly improve the accuracy of the naive bayes model by incorporating the knowledge from the large pool of unlabeled examples. Refer to FIGURE to see how the accuracy of the model changes with the iteration of the EM algorithm. 
+This algorithm, which we'll refer to as  "classification maximisation" algorithm is a convenient approximation to the more rigorous expectation maximisation. What this means, is that we use the predicted labels as the actual labels and retrain the model based on these labels until convergence. These iterations significantly improve the accuracy of the naive bayes model by incorporating the knowledge from the large pool of unlabeled examples. Refer to FIGURE to see how the accuracy of the model changes with the iteration of the EM algorithm. 
 
 
 
